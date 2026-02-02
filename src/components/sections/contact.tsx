@@ -119,18 +119,20 @@ export function Contact() {
                     </form>
                 </div>
 
-                <div className="mt-20 flex justify-center gap-8 text-neutral-500 text-sm items-center">
-                    <MagneticButton strength={0.3} className="p-2">
-                        <a href="https://www.linkedin.com/in/lntduong/" className="hover:text-red-500 transition-colors">LinkedIn</a>
-                    </MagneticButton>
-                    <MagneticButton strength={0.3} className="p-2">
-                        <a href="https://github.com/lntduong" className="hover:text-red-500 transition-colors">GitHub</a>
-                    </MagneticButton>
-                    <MagneticButton strength={0.3} className="p-2">
-                        <a href="https://www.facebook.com/lntd.179/" className="hover:text-red-500 transition-colors">Facebook</a>
-                    </MagneticButton>
-                    <span className="text-neutral-700">|</span>
-                    <span className="text-neutral-700">© 2026 By Yang Yang</span>
+                <div className="mt-20 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 text-neutral-500 text-xs md:text-sm">
+                    <div className="flex gap-4 md:gap-8">
+                        <MagneticButton strength={0.3} className="p-2">
+                            <a href="https://www.linkedin.com/in/lntduong/" className="hover:text-red-500 transition-colors">LinkedIn</a>
+                        </MagneticButton>
+                        <MagneticButton strength={0.3} className="p-2">
+                            <a href="https://github.com/lntduong" className="hover:text-red-500 transition-colors">GitHub</a>
+                        </MagneticButton>
+                        <MagneticButton strength={0.3} className="p-2">
+                            <a href="https://www.facebook.com/lntd.179/" className="hover:text-red-500 transition-colors">Facebook</a>
+                        </MagneticButton>
+                    </div>
+                    <span className="hidden md:inline text-neutral-700">|</span>
+                    <span className="text-neutral-700 text-center">© 2026 By Yang Yang</span>
                 </div>
             </div>
         </section>
