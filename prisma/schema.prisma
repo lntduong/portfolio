@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model About {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  title     String?
+  content   String
+  order     Int      @default(0)
+  updatedAt DateTime @map("updatedAt")
+
+  @@map("About")
+}
+
+model Certificate {
+  id        String   @id @default(cuid())
+  name      String
+  issuer    String
+  date      String
+  url       String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @map("updatedAt")
+
+  @@map("Certificate")
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("Contact")
+}
+
+model Education {
+  id          String   @id @default(cuid())
+  degree      String
+  school      String
+  location    String?
+  startDate   String
+  endDate     String?
+  description String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @map("updatedAt")
+
+  @@map("Education")
+}
+
+model Experience {
+  id          String               @id @default(cuid())
+  position    String
+  company     String
+  location    String?
+  startDate   String
+  endDate     String?
+  description String
+  techStack   String[]
+  order       Int                  @default(0)
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @map("updatedAt")
+
+  projects    ExperienceProject[]
+
+  @@map("Experience")
+}
+
+model ExperienceProject {
+  id               String   @id @default(cuid())
+  name             String
+  description      String
+  technologies     String[]
+  teamSize         Int      @default(1)
+  responsibilities String[]
+  order            Int      @default(0)
+  experienceId     String
+
+  experience Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@map("ExperienceProject")
+}
+
+model Project {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  description String
+  content    String?
+  techStack  String[]
+  imageUrl   String?
+  images     String[]
+  demoUrl    String?
+  githubUrl  String?
+  featured   Boolean  @default(false)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @map("updatedAt")
+
+  @@map("Project")
+}
+
+model Skill {
+  id       String @id @default(cuid())
+  name     String
+  category String
+  level    Int    @default(80)
+  icon     String?
+  order    Int    @default(0)
+
+  @@map("Skill")
+}
