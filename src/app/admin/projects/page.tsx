@@ -176,7 +176,7 @@ export default function ProjectsPage() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-                <Button onClick={startCreate} className="gap-2">
+                <Button onClick={startCreate} className="gap-2 bg-red-600 text-white hover:bg-red-700">
                     <Plus size={16} /> Add Project
                 </Button>
             </div>
@@ -243,141 +243,142 @@ export default function ProjectsPage() {
             </div>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetContent className="border-l-neutral-800 bg-neutral-950 text-neutral-200 w-[600px] sm:w-[800px] overflow-y-auto">
-                    <SheetHeader>
+                <SheetContent className="border-l-neutral-800 bg-neutral-950 text-neutral-200 w-[600px] sm:w-[800px] flex flex-col p-0">
+                    <SheetHeader className="px-6 pt-6 pb-4 border-b border-neutral-800">
                         <SheetTitle className="text-neutral-100">{editingId ? "Edit Project" : "Add Project"}</SheetTitle>
                         <SheetDescription>Showcase your best work.</SheetDescription>
                     </SheetHeader>
-                    <form onSubmit={handleSubmit} className="space-y-6 py-6">
-                        <div className="grid grid-cols-2 gap-4">
+                    <div className="flex-1 overflow-y-auto px-6 py-6">
+                        <form onSubmit={handleSubmit} className="space-y-6" id="project-form">
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="title">Title</Label>
+                                    <Input
+                                        id="title"
+                                        value={formData.title}
+                                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                        required
+                                        className="bg-neutral-900 border-neutral-800"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="slug">Slug (URL)</Label>
+                                    <Input
+                                        id="slug"
+                                        value={formData.slug}
+                                        onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                                        required
+                                        className="bg-neutral-900 border-neutral-800"
+                                    />
+                                </div>
+                            </div>
+
                             <div className="space-y-2">
-                                <Label htmlFor="title">Title</Label>
+                                <Label htmlFor="description">Short Description</Label>
                                 <Input
-                                    id="title"
-                                    value={formData.title}
-                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    id="description"
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                                     required
                                     className="bg-neutral-900 border-neutral-800"
                                 />
                             </div>
+
                             <div className="space-y-2">
-                                <Label htmlFor="slug">Slug (URL)</Label>
+                                <Label htmlFor="techStack">Tech Stack (comma separated)</Label>
                                 <Input
-                                    id="slug"
-                                    value={formData.slug}
-                                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                                    required
+                                    id="techStack"
+                                    value={formData.techStack}
+                                    onChange={(e) => setFormData({ ...formData, techStack: e.target.value })}
+                                    placeholder="React, Next.js, TypeScript..."
                                     className="bg-neutral-900 border-neutral-800"
                                 />
                             </div>
-                        </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="description">Short Description</Label>
-                            <Input
-                                id="description"
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                required
-                                className="bg-neutral-900 border-neutral-800"
-                            />
-                        </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="demoUrl">Demo URL</Label>
+                                    <div className="relative">
+                                        <LinkIcon className="absolute left-3 top-2.5 h-4 w-4 text-neutral-500" />
+                                        <Input
+                                            id="demoUrl"
+                                            value={formData.demoUrl}
+                                            onChange={(e) => setFormData({ ...formData, demoUrl: e.target.value })}
+                                            className="pl-9 bg-neutral-900 border-neutral-800"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="githubUrl">GitHub URL</Label>
+                                    <div className="relative">
+                                        <Github className="absolute left-3 top-2.5 h-4 w-4 text-neutral-500" />
+                                        <Input
+                                            id="githubUrl"
+                                            value={formData.githubUrl}
+                                            onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
+                                            className="pl-9 bg-neutral-900 border-neutral-800"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="techStack">Tech Stack (comma separated)</Label>
-                            <Input
-                                id="techStack"
-                                value={formData.techStack}
-                                onChange={(e) => setFormData({ ...formData, techStack: e.target.value })}
-                                placeholder="React, Next.js, TypeScript..."
-                                className="bg-neutral-900 border-neutral-800"
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label htmlFor="demoUrl">Demo URL</Label>
-                                <div className="relative">
-                                    <LinkIcon className="absolute left-3 top-2.5 h-4 w-4 text-neutral-500" />
+                                <Label htmlFor="content">Full Content/Case Study (Markdown)</Label>
+                                <Textarea
+                                    id="content"
+                                    value={formData.content}
+                                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                                    className="min-h-[150px] bg-neutral-900 border-neutral-800 font-mono text-sm"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label htmlFor="imageUrl">Cover Image URL</Label>
                                     <Input
-                                        id="demoUrl"
-                                        value={formData.demoUrl}
-                                        onChange={(e) => setFormData({ ...formData, demoUrl: e.target.value })}
-                                        className="pl-9 bg-neutral-900 border-neutral-800"
+                                        id="imageUrl"
+                                        value={formData.imageUrl}
+                                        onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                                        placeholder="https://..."
+                                        className="bg-neutral-900 border-neutral-800"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="order">Display Order</Label>
+                                    <Input
+                                        id="order"
+                                        type="number"
+                                        value={formData.order}
+                                        onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
+                                        className="bg-neutral-900 border-neutral-800"
                                     />
                                 </div>
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="githubUrl">GitHub URL</Label>
-                                <div className="relative">
-                                    <Github className="absolute left-3 top-2.5 h-4 w-4 text-neutral-500" />
-                                    <Input
-                                        id="githubUrl"
-                                        value={formData.githubUrl}
-                                        onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                                        className="pl-9 bg-neutral-900 border-neutral-800"
-                                    />
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="space-y-2">
-                            <Label htmlFor="content">Full Content/Case Study (Markdown)</Label>
-                            <Textarea
-                                id="content"
-                                value={formData.content}
-                                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                                className="min-h-[150px] bg-neutral-900 border-neutral-800 font-mono text-sm"
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="imageUrl">Cover Image URL</Label>
-                                <Input
-                                    id="imageUrl"
-                                    value={formData.imageUrl}
-                                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                                    placeholder="https://..."
-                                    className="bg-neutral-900 border-neutral-800"
+                            <div className="flex items-center space-x-2 rounded-md border border-neutral-800 p-4 bg-neutral-900/50">
+                                <Checkbox
+                                    id="featured"
+                                    checked={formData.featured}
+                                    onCheckedChange={(c) => setFormData({ ...formData, featured: !!c })}
+                                    className="border-neutral-500 data-[state=checked]:bg-white data-[state=checked]:text-black"
                                 />
+                                <label
+                                    htmlFor="featured"
+                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                    Mark as Featured (Show on Homepage)
+                                </label>
                             </div>
-                            <div className="space-y-2">
-                                <Label htmlFor="order">Display Order</Label>
-                                <Input
-                                    id="order"
-                                    type="number"
-                                    value={formData.order}
-                                    onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                                    className="bg-neutral-900 border-neutral-800"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex items-center space-x-2 rounded-md border border-neutral-800 p-4 bg-neutral-900/50">
-                            <Checkbox
-                                id="featured"
-                                checked={formData.featured}
-                                onCheckedChange={(c) => setFormData({ ...formData, featured: !!c })}
-                                className="border-neutral-500 data-[state=checked]:bg-white data-[state=checked]:text-black"
-                            />
-                            <label
-                                htmlFor="featured"
-                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                                Mark as Featured (Show on Homepage)
-                            </label>
-                        </div>
-
-                        <SheetFooter>
-                            <SheetClose asChild>
-                                <Button variant="outline" type="button" className="border-neutral-800 hover:bg-neutral-900">Cancel</Button>
-                            </SheetClose>
-                            <Button type="submit" disabled={submitting}>
-                                {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save"}
-                            </Button>
-                        </SheetFooter>
-                    </form>
+                        </form>
+                    </div>
+                    <SheetFooter className="px-6 py-4 border-t border-neutral-800">
+                        <SheetClose asChild>
+                            <Button variant="outline" type="button" className="border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-900 hover:text-white">Cancel</Button>
+                        </SheetClose>
+                        <Button type="submit" form="project-form" disabled={submitting} className="bg-red-600 text-white hover:bg-red-700 border-none">
+                            {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save"}
+                        </Button>
+                    </SheetFooter>
                 </SheetContent>
             </Sheet>
         </div>

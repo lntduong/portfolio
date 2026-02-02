@@ -138,7 +138,7 @@ export default function SkillsPage() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Skills</h1>
-                <Button onClick={startCreate} className="gap-2">
+                <Button onClick={startCreate} className="gap-2 bg-red-600 text-white hover:bg-red-700">
                     <Plus size={16} /> Add Skill
                 </Button>
             </div>
@@ -208,7 +208,7 @@ export default function SkillsPage() {
             </div>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetContent className="border-l-neutral-800 bg-neutral-950 text-neutral-200 w-[400px] sm:w-[540px]">
+                <SheetContent className="border-l-neutral-800 bg-neutral-950 text-neutral-200 w-[400px] sm:w-[540px] p-6">
                     <SheetHeader>
                         <SheetTitle className="text-neutral-100">{editingId ? "Edit Skill" : "Add Skill"}</SheetTitle>
                         <SheetDescription>Manage your technical skills and proficiency.</SheetDescription>
@@ -276,9 +276,9 @@ export default function SkillsPage() {
 
                         <SheetFooter>
                             <SheetClose asChild>
-                                <Button variant="outline" type="button" className="border-neutral-800 hover:bg-neutral-900">Cancel</Button>
+                                <Button variant="outline" type="button" className="border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-900 hover:text-white">Cancel</Button>
                             </SheetClose>
-                            <Button type="submit" disabled={submitting}>
+                            <Button type="submit" disabled={submitting} className="bg-red-600 text-white hover:bg-red-700 border-none">
                                 {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save"}
                             </Button>
                         </SheetFooter>

@@ -280,7 +280,7 @@ export default function ExperiencePage() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Experience</h1>
-                <Button onClick={startCreateExperience} className="gap-2">
+                <Button onClick={startCreateExperience} className="gap-2 bg-red-600 text-white hover:bg-red-700">
                     <Plus size={16} /> Add Position
                 </Button>
             </div>
@@ -354,7 +354,7 @@ export default function ExperiencePage() {
                                                 <div className="rounded border border-neutral-800 bg-neutral-900 p-4">
                                                     <div className="flex items-center justify-between mb-4">
                                                         <h4 className="text-sm font-semibold text-neutral-300">Projects at {item.company}</h4>
-                                                        <Button size="sm" variant="outline" onClick={() => startAddProject(item.id)}>
+                                                        <Button size="sm" onClick={() => startAddProject(item.id)} className="bg-red-600 text-white hover:bg-red-700">
                                                             <Plus size={14} className="mr-2" /> Add Project
                                                         </Button>
                                                     </div>
@@ -394,7 +394,7 @@ export default function ExperiencePage() {
 
             {/* Experience Sheet */}
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                <SheetContent className="border-l-neutral-800 bg-neutral-950 text-neutral-200 w-[500px] sm:w-[600px] overflow-y-auto">
+                <SheetContent className="border-l-neutral-800 bg-neutral-950 text-neutral-200 w-[500px] sm:w-[600px] p-6 overflow-y-auto">
                     <SheetHeader>
                         <SheetTitle className="text-neutral-100">{editingId ? "Edit Experience" : "Add Experience"}</SheetTitle>
                     </SheetHeader>
@@ -436,7 +436,10 @@ export default function ExperiencePage() {
                             <Input type="number" value={formData.order} onChange={e => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })} className="bg-neutral-900 border-neutral-800" />
                         </div>
                         <SheetFooter>
-                            <Button type="submit" disabled={submitting}>{submitting ? <Loader2 className="animate-spin" /> : "Save"}</Button>
+                            <SheetClose asChild>
+                                <Button variant="outline" type="button" className="border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-900 hover:text-white">Cancel</Button>
+                            </SheetClose>
+                            <Button type="submit" disabled={submitting} className="bg-red-600 text-white hover:bg-red-700 border-none">{submitting ? <Loader2 className="animate-spin" /> : "Save"}</Button>
                         </SheetFooter>
                     </form>
                 </SheetContent>
@@ -479,7 +482,8 @@ export default function ExperiencePage() {
                             <Textarea value={projectFormData.responsibilities} onChange={e => setProjectFormData({ ...projectFormData, responsibilities: e.target.value })} className="min-h-[100px] bg-neutral-900 border-neutral-800" />
                         </div>
                         <DialogFooter>
-                            <Button type="submit" disabled={submitting}>{submitting ? <Loader2 className="animate-spin" /> : "Save Project"}</Button>
+                            <Button variant="outline" type="button" onClick={() => setIsProjectDialogOpen(false)} className="border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-900 hover:text-white">Cancel</Button>
+                            <Button type="submit" disabled={submitting} className="bg-red-600 text-white hover:bg-red-700 border-none">{submitting ? <Loader2 className="animate-spin" /> : "Save Project"}</Button>
                         </DialogFooter>
                     </form>
                 </DialogContent>

@@ -144,7 +144,7 @@ export default function CertificatesPage() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold tracking-tight">Certificates</h1>
-                <Button onClick={startCreate} className="gap-2">
+                <Button onClick={startCreate} className="gap-2 bg-red-600 text-white hover:bg-red-700">
                     <Plus size={16} /> Add Certificate
                 </Button>
             </div>
@@ -268,7 +268,7 @@ export default function CertificatesPage() {
                             <SheetClose asChild>
                                 <Button variant="outline" type="button" className="border-neutral-700 bg-transparent text-neutral-300 hover:bg-neutral-900 hover:text-white">Cancel</Button>
                             </SheetClose>
-                            <Button type="submit" disabled={submitting} className="bg-white text-black hover:bg-neutral-200 border-none">
+                            <Button type="submit" disabled={submitting} className="bg-red-600 text-white hover:bg-red-700 border-none">
                                 {submitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save"}
                             </Button>
                         </SheetFooter>
